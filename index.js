@@ -8,7 +8,7 @@ const corsOptions = {
     origin: 'http://localhost:3000', //http://127.0.0.1:8080/updateCards
 }
 const configuredCors = cors(corsOptions);
-app.options('*', configuredCors);
+//app.options('*', configuredCors);
 /*
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -56,7 +56,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 app.use(bodyParser.json());
 
-app.post('/updateCards', configuredCors, async (req, res) => {
+app.post('/updateCards', async (req, res) => {
     try {
         var str_json = JSON.stringify(req.body);
         console.log(req.body);
@@ -69,7 +69,7 @@ app.post('/updateCards', configuredCors, async (req, res) => {
     }
 });
 
-app.get('/cards', configuredCors, async (req, res) => {
+app.get('/cards', async (req, res) => {
     try {
         fs.readFile('cards.json', (err, data) => {
             if (err) {
@@ -85,9 +85,9 @@ app.get('/cards', configuredCors, async (req, res) => {
     
 });
 
-app.get('/', configuredCors, async (req, res) => {
+app.get('/', async (req, res) => {
     res.send('fishfry server');
 });
 
 app.listen(8080);
-console.log('Server running at http://127.0.0.1:8080/');
+//console.log('Server running at http://127.0.0.1:8080/');
