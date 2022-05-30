@@ -85,5 +85,9 @@ app.get('/cards', configuredCors, async (req, res) => {
     
 });
 
+app.get('/', configuredCors, async (req, res) => {
+    res.send('fishfry server');
+});
+
 app.listen(8080);
 console.log('Server running at http://127.0.0.1:8080/');
