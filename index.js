@@ -4,58 +4,14 @@ var fs = require('fs');
 var cors = require('cors');
 var app = express();
 
-const corsOptions = {
-    origin: 'http://localhost:3000', //http://127.0.0.1:8080/updateCards
-}
-const configuredCors = cors();
+//setup cors
 app.use(cors());
-/*
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("X-Powered-By",' 3.2.1');
-    res.header("Content-Type", "application/json;charset=utf-8");
-    next();
-});*/
 
-var testData = {
-    lanes: [
-      {
-        id: 'lane1',
-        title: 'Docked',
-        label: '2/2',
-        cards: [
-          {id: '1', title: 'Write Blog', description: 'Can AI make memes', label: '30 mins', draggable: false},
-          {id: '2', title: 'Pay Rent', description: 'Transfer via NEFT', label: '5 mins', metadata: {sha: 'be312a1'}},
-          {id: '3', title: 'Pay Rent', description: 'Transfer via NEFT', label: '5 mins', metadata: {sha: 'be312a1'}}
-        ]
-      },
-      {
-        id: 'lane2',
-        title: 'Outbound to Sea',
-        label: '0/0',
-        cards: []
-      },
-      {
-        id: 'lane3',
-        title: 'Inbound to Harbor',
-        label: '0/0',
-        cards: []
-      },
-      {
-        id: 'lane4',
-        title: 'Maintenance',
-        label: '0/0',
-        cards: []
-      }
-    ]
-};
-
+//setup bodyParser
 app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(bodyParser.json());
 
+//update boat cards
 app.post('/updateCards', async (req, res) => {
     try {
         var str_json = JSON.stringify(req.body);
@@ -69,6 +25,7 @@ app.post('/updateCards', async (req, res) => {
     }
 });
 
+//get and return boat cards 
 app.get('/cards', async (req, res) => {
     try {
         fs.readFile('cards.json', (err, data) => {
@@ -85,6 +42,7 @@ app.get('/cards', async (req, res) => {
     
 });
 
+//text for get connection
 app.get('/', async (req, res) => {
     res.send('fishfry server')
 });
